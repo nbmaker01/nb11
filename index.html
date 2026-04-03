@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,7 +19,7 @@
          ========================= -->
     <a-entity 
       id="player"
-      position="0 1.6 20"
+      position="0 1.6 200"
       camera
       wasd-controls
       look-controls>
@@ -33,17 +34,17 @@
     <!-- =========================
          조명 설정
          ========================= -->
-    <a-light type="ambient" intensity="0.8"></a-light>
-    <a-light type="directional" position="10 20 10" intensity="1.5"></a-light>
+    <a-light type="ambient" intensity="1"></a-light>
+    <a-light type="directional" position="50 100 50" intensity="2"></a-light>
 
     <!-- =========================
-         바닥 생성 (더 넓게)
+         바닥 생성 (초대형)
          ========================= -->
     <a-plane 
       position="0 0 0"
       rotation="-90 0 0"
-      width="500"
-      height="500"
+      width="5000"
+      height="5000"
       color="#7BC8A4">
     </a-plane>
 
@@ -56,12 +57,12 @@
          3D 모델(GLB) 불러오기
          ========================= -->
     <!--
-      scale을 200배로 매우 크게 설정
+      scale을 20000배 (이전보다 100배 증가)
     -->
     <a-entity 
       gltf-model="model.glb"
-      position="0 0 -50"
-      scale="200 200 200"
+      position="0 0 -500"
+      scale="20000 20000 20000"
       rotation="0 45 0">
     </a-entity>
 
