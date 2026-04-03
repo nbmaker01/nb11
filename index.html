@@ -8,131 +8,57 @@
   <!-- A-Frame 기본 라이브러리 -->
   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 
-  <!-- 이동 기능을 위한 추가 컴포넌트
-       - PC에서 WASD 이동
-       - VR에서도 기본 이동/시점 제어에 도움 -->
+  <!-- 이동 기능을 위한 컴포넌트 -->
   <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
 </head>
 <body>
-  <a-scene
-    background="color: #ECECEC"
-    vr-mode-ui="enabled: true"
-    renderer="antialias: true; colorManagement: true"
-  >
-    <!-- =========================
-         에셋 미리 불러오기
-         ========================= -->
+  <a-scene background="color: #ECECEC">
+
+    <!-- 모델 미리 로드 -->
     <a-assets>
-      <!-- model.glb 파일을 미리 로드 -->
       <a-asset-item id="myModel" src="model.glb"></a-asset-item>
     </a-assets>
 
-    <!-- =========================
-         하늘
-         ========================= -->
+    <!-- 하늘 -->
     <a-sky color="#BFDFFF"></a-sky>
 
-    <!-- =========================
-         바닥
-         ========================= -->
+    <!-- 바닥 -->
     <a-plane
       position="0 0 0"
       rotation="-90 0 0"
       width="30"
       height="30"
       color="#CFCFCF"
-      shadow="receive: true"
     ></a-plane>
 
-    <!-- =========================
-         조명
-         ========================= -->
+    <!-- 조명 -->
+    <a-light type="ambient" intensity="0.7"></a-light>
+    <a-light type="directional" position="3 6 2" intensity="1"></a-light>
 
-    <!-- 전체적으로 은은하게 밝히는 조명 -->
-    <a-light
-      type="ambient"
-      color="#FFFFFF"
-      intensity="0.7"
-    ></a-light>
-
-    <!-- 방향성이 있는 메인 조명 -->
-    <a-light
-      type="directional"
-      color="#FFFFFF"
-      intensity="1"
-      position="3 6 2"
-      shadow="cast: true"
-    ></a-light>
-
-    <!-- 모델을 조금 더 자연스럽게 보이게 하는 보조 조명 -->
-    <a-light
-      type="point"
-      color="#FFF2CC"
-      intensity="0.6"
-      position="-2 3 2"
-    ></a-light>
-
-    <!-- =========================
-         3D 모델 배치
-         ========================= -->
+    <!-- 🔥 모델 크기 줄인 부분 (2 → 1로 축소) -->
     <a-entity
       gltf-model="#myModel"
       position="0 0 -4"
-      scale="2 2 2"
+      scale="1 1 1"
       rotation="0 25 0"
-      shadow="cast: true; receive: true"
     ></a-entity>
 
-    <!-- =========================
-         카메라 리그
-         =========================
-         - rig 자체가 움직이는 몸 역할
-         - camera는 시점 역할
-         ========================= -->
-    <a-entity
-      id="rig"
-      position="0 1.6 3"
-      movement-controls="speed: 0.18"
-    >
-      <!-- PC에서:
-           - 마우스로 시점 회전 가능
-           - WASD로 이동 가능 -->
+    <!-- 카메라 (PC + VR 이동) -->
+    <a-entity id="rig" position="0 1.6 3" movement-controls="speed: 0.18">
+
+      <!-- 시점 -->
       <a-entity
         camera
         look-controls="pointerLockEnabled: true"
         wasd-controls="acceleration: 20"
       ></a-entity>
 
-      <!-- 왼쪽 VR 컨트롤러 -->
-      <a-entity
-        laser-controls="hand: left"
-        raycaster="objects: .clickable"
-        line="color: #1188ff"
-      ></a-entity>
+      <!-- VR 컨트롤러 -->
+      <a-entity laser-controls="hand: left"></a-entity>
+      <a-entity laser-controls="hand: right"></a-entity>
 
-      <!-- 오른쪽 VR 컨트롤러 -->
-      <a-entity
-        laser-controls="hand: right"
-        raycaster="objects: .clickable"
-        line="color: #1188ff"
-      ></a-entity>
     </a-entity>
 
-    <!-- =========================
-         참고용 클릭 대상 예시
-         초보자용으로 남겨둔 오브젝트
-         VR 컨트롤러 레이와 상호작용 테스트 가능
-         필요 없으면 삭제 가능
-         ========================= -->
-    <a-box
-      class="clickable"
-      position="1.5 1 -2.5"
-      depth="0.5"
-      height="0.5"
-      width="0.5"
-      color="#FF6B6B"
-      shadow="cast: true; receive: true"
-    ></a-box>
   </a-scene>
 </body>
 </html>
